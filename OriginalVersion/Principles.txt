@@ -1,0 +1,18 @@
+The TF2 rich presence mods runs on a series of principles I designed that makes it adaptable to a large amount of games, including other source games out of the box, but new games need tinkering.
+
+The principles are as follows:
+1) The client is in two parts, part A, the JS, part B, the Python.
+2) The python writes a gameinfo.txt, this is the source of information for JS.
+
+A1.a) The JS is built upon a basic construct which diffrentiates two types of info, official and community, these are done in if statements.
+A1.b) This was updated in the map images update, which takes a map name and a field which tells it is it part of two categories, icon or non icon, icon will use a map field to grab an icon, of course in action this could be changed to weapon or whatever else you decide.
+A2) This is forwarded to a discord RPC connection.
+
+B1) The python grabs a log file from a location predestined in a file.
+B2) It then splits it into lines, then grabs lines which it predicts has the needed values (In TF2 these are lines that begin with certain fields such as 'Map: '
+B3) It parses this data via split functions then inserts the result to a series of variables.
+B4) These are written on a line by line basis to gameinfo.txt where it is read by the JS.
+
+The idea is to work from log files, as most game can produce them. This also means its not tampering with internal files and can never be picked up as a cheat of any form, which is good.
+
+Go forth and do me proud, with this word, I give you full use of the code provided herein the repo. Remember, credit me and me and you will be fine.
