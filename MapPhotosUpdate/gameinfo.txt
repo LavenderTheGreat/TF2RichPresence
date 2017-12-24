@@ -1,0 +1,4 @@
+208.78.165.236:27049
+Team Fortress
+cp_dustbowl
+cp_dustbowl
