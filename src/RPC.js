@@ -1,23 +1,20 @@
 var fs = require('fs'); //Import filesystem libraries
-
 const { Client } = require('discord-rpc'); //Create client object from Discord RPC libraries
 
 // Rich Presence only works with IPC, and so it won't work in browser
 const client = new Client({ transport: 'ipc' }); //Basic connection establish
 global.items = ['s','s','s','s','s']; //Create a basic list, good for placeholders for when no info is found.
-async function updatestatus(){ //Define update function
-	
+async function updatestatus() { //Define update function
+
 	fs.readFile("gameinfo.txt", function (err, data) { //Read file gameinfo
 		if (err) throw err; //If it fails, then error
 		var data = data.toString(); //Convert file to string
 		console.log(data) //Print it for debug info
-		global.items = data.split('\n'); //Split it into lines into a list	
+		global.items = data.split('\n'); //Split it into lines into a list
     }); //End read.
-	
-	 
-	 console.log(items); //Log list for debug purposes.
-	
-	
+
+	console.log(items); //Log list for debug purposes.
+
 	//code to execute upon update
 	if (items[3] == new String("none\r")){ //If the icon line declares it is a special class (Like none), execute code which sets icon to none
 		global.items //Use items global
@@ -37,15 +34,14 @@ async function updatestatus(){ //Define update function
 				joinSecret: 'join', //For completeness sake
 				spectateSecret: 'look', //For completeness sake
 				instance: false, //For completeness sake
-				
-		});	
+
+		});
 		console.log('UPDATED WITH NONE') //Log for debug
-		
+
 	} else { //If not listed as 'nophoto' in the file...
 		global.items //Use items global
 		console.log(items[0]) //For debugging, self explanatory
 		client.setActivity({ //Send activity to Discord
-			
 				state: 'On server: ' + items[1], //Set status to 'On server: '+ server gamemode line
 				details: '\n Server IP: ' + items[0], //Set subtext to 'IP: ' + the ip line
 				startTimestamp: Math.round((new Date()).getTime() / 1000), //Set the time to the current time
@@ -61,22 +57,14 @@ async function updatestatus(){ //Define update function
 				joinSecret: 'join', //For completeness sake
 				spectateSecret: 'look', //For completeness sake
 				instance: false, //For completeness sake
-		});	
-		
+		});
 		console.log('UPDATED WITH SPECIAL') //Log for debug
 	};
-	
 	console.log('UPDATED'); //Log for debug
 }
- 
+
 
 client.on('ready', () => { //When client is ready...
-	
-
-
-
-  
-  
   // based on the object from
   // https://github.com/discordapp/discord-rpc/blob/master/examples/send-presence
   console.log('Ready, setting rich presence'); //For debug
@@ -94,26 +82,25 @@ client.on('ready', () => { //When client is ready...
     joinSecret: 'join', //For completeness sake
     spectateSecret: 'look', //For completeness sake
     instance: false, //For completeness sake
-  }); 
- 
+  });
+
   client.subscribe('ACTIVITY_JOIN', ({ secret }) => { //For completeness sake
     console.log('Game Join Request', secret); //For completeness sake
   }); //For completeness sake
- 
+
   client.subscribe('ACTIVITY_SPECTATE', ({ secret }) => {  //For completeness sake
     console.log('Game Spectate Request', secret); //For completeness sake
   }); //For completeness sake
-  
+
   console.log('starting loop intervals...'); //Log for debug
-  
-  setInterval(updatestatus,1000); //Update each 10 seconds (Note to self: Why 10 seconds?)
-  
+  setInterval(updatestatus, 1000); //Update each 10 seconds (Note to self: Why 10 seconds?)
 });
- 
+
 // Log in to RPC with only client id; allows only rich presence.
 // If you want to use other features you should see below for an example
 // of authorization with scopes, which will still let you use rich presence
 // if you are using the `ipc` transport.
+
 client.login(''); //Put in the client ID from your page here, mine is relatively private, but you can get it anyway from the release on GB, please don't abuse.
 
 

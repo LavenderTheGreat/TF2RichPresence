@@ -1,9 +1,0 @@
-C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/tf
-
-This should be the path to your TF folder, where console.log resides. This path should not contain any \ s and if those do exist they should be replaced with /s.
-
-EXAMPLE: C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/tf
-
-If this is empty it will use a default path.
-
-If you are fussy and change the path everytime, this can contain 'manual', which opens a file dialog, but also leaves a laggy Tkinter window open
